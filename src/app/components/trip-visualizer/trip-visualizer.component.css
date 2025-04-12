@@ -1,0 +1,27 @@
+.trip-visualizer {
+        width: 100%;
+        margin: 0 auto;
+      }
+      .input-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      input {
+        padding: 8px;
+        font-size: 14px;
+        width: 45%;
+      }
+      button {
+        padding: 8px 16px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .trip-display {
+        width: 100%;
+        margin-top: 30px;
+      }
+      svg {
+        display: block;
+        width: 100%;
+      }

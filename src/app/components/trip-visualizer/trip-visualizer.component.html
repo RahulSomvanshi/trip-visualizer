@@ -1,0 +1,56 @@
+<div class="trip-visualizer">
+    <div class="input-container">
+      <input [(ngModel)]="startPoint" placeholder="Start Point" maxlength="3"/>
+      <input [(ngModel)]="endPoint" placeholder="End Point" maxlength="3"/>
+      <button (click)="addTrip()" [disabled]="!startPoint || !endPoint">Add Trip</button>
+    </div>
+
+    <div class="trip-display">
+      <svg height="100" width="100%">
+
+        <g *ngFor="let trip of trips; let i = index">
+          <line
+          *ngIf="trip.level === 1 && !(isTripOver(trips) && i === trips.length - 1)"
+            [attr.x1]="getStartX(i)"
+            [attr.y1]="50"
+            [attr.x2]="getEndX(i)"
+            [attr.y2]="50"
+            [attr.stroke]="getLineColor(trip)"
+            stroke-width="2"
+          />
+
+          <path
+            *ngIf="!trip.isContinued && !(isTripOver(trips) && i === trips.length - 1)  "
+            [attr.d]="getArrowPath(i)"
+         
+            [attr.fill]="getTriangleColor(trip)"
+            stroke-width="2"
+          />
+
+          <path
+            *ngIf="trip.level === 2 && !(isTripOver(trips) && i === trips.length - 1)"
+            [attr.d]="getCurvePath(i)"
+            fill="transparent"
+            [attr.stroke]="getcurveColor(trip)"
+            stroke-width="2"
+          />
+          <circle
+            *ngIf="trip.isContinued ||!trip.isContinued  "
+            [attr.cx]="getStartX(i)"
+            [attr.cy]="50"
+            r="4"
+            [attr.fill]="getCircleColor(trip)"
+          />
+          <text
+          *ngIf="trip.level === 1 || trip.level === 2"
+          [attr.x]="getStartX(i)"
+          [attr.y]="trip.level === 2 ? (trip.segmentId % 2 === 0 ? 30 : 80) : 60"
+          font-size="14"
+          text-anchor="middle"
+        >
+          {{ trip.start }}-{{ trip.end }}
+        </text>
+        </g>
+      </svg>
+    </div>
+  </div>
